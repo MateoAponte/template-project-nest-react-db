@@ -1,0 +1,19 @@
+# Dependencies
+node_modules/
+**/node_modules/
+
+# npm lock
+package-lock.json
+**/package-lock.json
+
+# Config
+.turbo/
+.husky/
+
+# builds
+dist/
+build/
+
+# Env
+.env
+.env.local

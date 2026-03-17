@@ -1,0 +1,39 @@
+{
+  "name": "template",
+  "version": "1.0.0",
+  "description": "",
+  "main": "commitlint.config.js",
+  "packageManager": "pnpm@10.0.0",
+  "scripts": {
+    "build": "turbo run build",
+    "test": "turbo run test",
+    "lint": "turbo run lint"
+  },
+  "lint-staged": {
+    "apps/backend/**/*.ts": [
+      "eslint --fix --config apps/back/.eslintrc.js",
+      "prettier --write --config apps/back/.prettierrc"
+    ],
+    "apps/frontend/**/*.{ts,tsx}": [
+      "eslint --fix --config apps/front/.eslintrc.js",
+      "prettier --write --config apps/front/.prettierrc"
+    ],
+    "**/*.{json,md}": [
+      "prettier --write"
+    ]
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@commitlint/cli": "^20.5.0",
+    "@commitlint/config-conventional": "^20.5.0",
+    "lint-staged": "^16.4.0",
+    "turbo": "^2.8.17"
+  }
+}
