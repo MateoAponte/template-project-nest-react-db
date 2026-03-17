@@ -7,7 +7,10 @@
   "scripts": {
     "build": "turbo run build",
     "test": "turbo run test",
-    "lint": "turbo run lint"
+    "lint": "turbo run lint",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "prepare": "husky"
   },
   "lint-staged": {
     "apps/backend/**/*.ts": [
@@ -33,7 +36,11 @@
   "devDependencies": {
     "@commitlint/cli": "^20.5.0",
     "@commitlint/config-conventional": "^20.5.0",
+    "eslint-config-prettier": "^10.0.1",
     "lint-staged": "^16.4.0",
     "turbo": "^2.8.17"
+  },
+  "dependencies": {
+    "prettier": "^3.8.1"
   }
 }
