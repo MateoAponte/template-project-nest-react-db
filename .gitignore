@@ -11,8 +11,9 @@ package-lock.json
 .husky/
 
 # builds
-dist/
+**/dist/
 build/
+**/public/
 
 # Env
 .env

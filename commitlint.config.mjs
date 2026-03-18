@@ -1,3 +1,6 @@
+import { readdirSync, statSync } from 'node:fs';
+import { join } from 'node:path';
+
 // Get all dinamically the modules
 function getModules(appPath, appName) {
   try {
@@ -27,8 +30,14 @@ const FRONT_FOLDER = 'front';
 const BACK_FOLDER = 'back';
 
 // Get all modules for each kind of app
-const FRONT_SCOPES = getModules(`./apps/${FRONT_FOLDER}/src/features`, FRONT_FOLDER);
+const FRONT_SCOPES = getModules(`/src/features`, FRONT_FOLDER);
 const BACK_SCOPES = getModules(`./apps/${BACK_FOLDER}/src`, BACK_FOLDER);
+
+console.log(
+  readdirSync(`./apps/${BACK_FOLDER}/src`).filter((dir) =>
+    statSync(join(`./apps/${BACK_FOLDER}/src`, dir)),
+  ),
+);
 
 // Get all possible combinations of modules
 const COMMON_FRONT_SCOPES = COMMON_MODULES.map((mod) => `${FRONT_FOLDER}/${mod}`);

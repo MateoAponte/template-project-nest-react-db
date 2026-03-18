@@ -1,34 +1,29 @@
 // @ts-check
-import eslint from '@eslint/js';
-import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
+import { baseExtends } from '../../eslint.config.mjs';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
+import eslintNestJs from '@darraghor/eslint-plugin-nestjs-typed';
 
 export default tseslint.config(
   {
-    ignores: ['eslint.config.mjs'],
+    extends: [...baseExtends, eslintNestJs.configs.flatRecommended],
+    ignores: ['config/**/*'],
   },
-  eslint.configs.recommended,
-  ...tseslint.configs.recommendedTypeChecked,
-  eslintPluginPrettierRecommended,
   {
     languageOptions: {
       globals: {
         ...globals.node,
         ...globals.jest,
       },
-      sourceType: 'commonjs',
       parserOptions: {
         projectService: true,
         tsconfigRootDir: import.meta.dirname,
       },
     },
-  },
-  {
     rules: {
-      '@typescript-eslint/no-explicit-any': 'off',
-      '@typescript-eslint/no-floating-promises': 'warn',
-      '@typescript-eslint/no-unsafe-argument': 'warn'
+      // Back estricto
+      '@typescript-eslint/explicit-function-return-type': 'error',
+      'no-console': 'error',
     },
   },
 );
