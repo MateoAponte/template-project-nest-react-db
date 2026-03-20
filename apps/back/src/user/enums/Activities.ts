@@ -1,4 +1,4 @@
-export enum Activities {
+export enum Activity {
   WRITER = 0,
   READER = 1,
   EDITOR = 2,

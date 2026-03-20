@@ -1,4 +1,11 @@
-import { Body, Controller, Post, Req, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Post,
+  Req,
+  UnauthorizedException,
+  UseGuards,
+} from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { LoginDto, TokenDto, TokenUserDto } from './dtos';
@@ -21,7 +28,7 @@ export class AuthController {
   })
   @ApiResponse({ status: 400, description: 'Bad Request.' })
   @Post('login')
-  login(@Body() body: LoginDto): Promise<TokenUserDto | { message: string }> {
+  login(@Body() body: LoginDto): Promise<TokenUserDto> {
     return this.authService.login(body);
   }
 
@@ -32,10 +39,10 @@ export class AuthController {
   @ApiResponse({ status: 401, description: 'Unauthorized.' })
   @UseGuards(AuthGuard('refresh-token'))
   @Post('refresh')
-  refresh(@Req() req: Request): TokenUserDto | { message: string } {
+  refresh(@Req() req: Request): TokenUserDto {
     const authHeader = req.headers.authorization;
     if (authHeader == null || authHeader == undefined)
-      return { message: 'No authorization header found' };
+      throw new UnauthorizedException('No authorization header found');
 
     const refreshToken = authHeader.split(' ')[1];
     return this.authService.refresh(refreshToken);

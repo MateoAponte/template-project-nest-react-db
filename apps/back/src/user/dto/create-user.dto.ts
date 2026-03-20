@@ -8,8 +8,8 @@ import {
   MinLength,
 } from 'class-validator';
 import { Rol } from '../enums/Rol';
-import { Activities } from '../enums/Activities';
 import { LoginDto } from 'src/auth/dtos/Login.dto';
+import { Activity } from '../enums';
 
 export class CreateUserDto extends LoginDto {
   @IsString()
@@ -19,13 +19,13 @@ export class CreateUserDto extends LoginDto {
   name: string;
 
   @IsArray()
-  @IsEnum(Activities, {
+  @IsEnum(Activity, {
     each: true,
   })
   @IsOptional({
     each: true,
   })
-  activities?: Activities[];
+  activities?: Activity[];
 
   @IsEnum(Rol)
   @IsOptional()

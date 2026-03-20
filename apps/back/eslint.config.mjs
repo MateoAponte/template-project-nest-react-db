@@ -26,4 +26,10 @@ export default tseslint.config(
       'no-console': 'error',
     },
   },
+  {
+    files: ['**/*.guard.ts'],
+    rules: {
+      '@darraghor/nestjs-typed/injectable-should-be-provided': 'off',
+    },
+  },
 );

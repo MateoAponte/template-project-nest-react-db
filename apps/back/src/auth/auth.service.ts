@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable, UnauthorizedException } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 import { UserRepositoryService } from 'src/user/provider/user.repository.service';
 import { LoginDto, TokenDto, TokenUserDto } from './dtos';
@@ -42,18 +42,12 @@ export class AuthService {
     return await this.compareHash(password, dbPassword);
   }
 
-  async login(body: LoginDto): Promise<TokenUserDto | { message: string }> {
+  async login(body: LoginDto): Promise<TokenUserDto> {
     const user = await this.usersRepositoryService.findUserByEmail(body.email);
-    if (!!user === false)
-      return {
-        message: 'No se encontro el usuario',
-      };
+    if (!!user === false) throw new UnauthorizedException('User not found');
 
     const isValidate = await this.compareHash(body.password, user.password);
-    if (!isValidate)
-      return {
-        message: 'Las credenciales son incorrectas',
-      };
+    if (!isValidate) throw new UnauthorizedException('Incorrect credentials');
 
     return this.jwtProvider.signTokens(user);
   }

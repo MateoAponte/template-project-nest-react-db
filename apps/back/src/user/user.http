@@ -1,9 +1,12 @@
-GET http://localhost:3000/user/ee7288cf-9d78-4ddf-b039-4ecd1b3ea2ab
+GET http://localhost:3000/user/d3f0ffc6-b449-4435-ae39-af258cf4d1b5
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQzZjBmZmM2LWI0NDktNDQzNS1hZTM5LWFmMjU4Y2Y0ZDFiNSIsImVtYWlsIjoiam9obkBleGFtcGxlLmNvbSIsInJvbCI6MCwiYWN0aXZpdGllcyI6WzFdLCJuYW1lIjoiSm9obiBEb2UiLCJpYXQiOjE3NzQwMzU3NzcsImV4cCI6MTc3NDAzNjY3N30.vPLZKAwJRt55QIluIxqjSFPlgfBZndkWSz7H-BZqx9g
 
 GET http://localhost:3000/user
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQzZjBmZmM2LWI0NDktNDQzNS1hZTM5LWFmMjU4Y2Y0ZDFiNSIsImVtYWlsIjoiam9obkBleGFtcGxlLmNvbSIsInJvbCI6MCwiYWN0aXZpdGllcyI6WzFdLCJuYW1lIjoiSm9obiBEb2UiLCJpYXQiOjE3NzQwMzU3NzcsImV4cCI6MTc3NDAzNjY3N30.vPLZKAwJRt55QIluIxqjSFPlgfBZndkWSz7H-BZqx9g
 
 POST http://localhost:3000/user
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQzZjBmZmM2LWI0NDktNDQzNS1hZTM5LWFmMjU4Y2Y0ZDFiNSIsImVtYWlsIjoiam9obkBleGFtcGxlLmNvbSIsInJvbCI6MCwiYWN0aXZpdGllcyI6WzFdLCJuYW1lIjoiSm9obiBEb2UiLCJpYXQiOjE3NzQwMzU3NzcsImV4cCI6MTc3NDAzNjY3N30.vPLZKAwJRt55QIluIxqjSFPlgfBZndkWSz7H-BZqx9g
 
 {
   "name": "John Doe",
@@ -11,13 +14,14 @@ Content-Type: application/json
   "password": "Abcd!123456789"
 }
 
-PATCH http://localhost:3000/user/ee7288cf-9d78-4ddf-b039-4ecd1b3ea2ab
+PATCH http://localhost:3000/user/d3f0ffc6-b449-4435-ae39-af258cf4d1b5
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQzZjBmZmM2LWI0NDktNDQzNS1hZTM5LWFmMjU4Y2Y0ZDFiNSIsImVtYWlsIjoiam9obkBleGFtcGxlLmNvbSIsInJvbCI6MCwiYWN0aXZpdGllcyI6WzFdLCJuYW1lIjoiSm9obiBEb2UiLCJpYXQiOjE3NzQwMzU3NzcsImV4cCI6MTc3NDAzNjY3N30.vPLZKAwJRt55QIluIxqjSFPlgfBZndkWSz7H-BZqx9g
 
 {
   "name": "John Doe 2",
   "email": "john@example.com",
-  "password": "secret"
+  "password": "Abcd!123456789"
 }
 
-DELETE http://localhost:3000/user/ee7288cf-9d78-4ddf-b039-4ecd1b3ea2ab
+DELETE http://localhost:3000/user/d3f0ffc6-b449-4435-ae39-af258cf4d1b5

@@ -1,9 +1,14 @@
-import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
+import {
+  CanActivate,
+  ExecutionContext,
+  ForbiddenException,
+  Injectable,
+} from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { Observable } from 'rxjs';
 import { ACTIVITY_KEY } from '../decorators/activities.decorator';
 import { IAuthRequest } from '../interfaces/AuthRequest.interface';
-import { Activities } from 'src/user/enums/Activities';
+import { Activity } from 'src/user/enums';
 
 @Injectable()
 export class ActivitiesGuard implements CanActivate {
@@ -12,7 +17,7 @@ export class ActivitiesGuard implements CanActivate {
   canActivate(
     context: ExecutionContext,
   ): boolean | Promise<boolean> | Observable<boolean> {
-    const requiredActivities = this.reflector.getAllAndOverride<Activities[]>(
+    const requiredActivities = this.reflector.getAllAndOverride<Activity[]>(
       ACTIVITY_KEY,
       [context.getHandler(), context.getClass()],
     );
@@ -22,13 +27,22 @@ export class ActivitiesGuard implements CanActivate {
     const request: IAuthRequest = context.switchToHttp().getRequest();
     const { user } = request;
 
-    if (user.activities == undefined) return false;
-    else
-      return requiredActivities.some(
+    if (user.activities == undefined)
+      throw new ForbiddenException(
+        "User doesn't permission to access this resource",
+      );
+    else {
+      const hasPermission = requiredActivities.some(
         (activity) =>
           (user?.activities ?? []).findIndex(
             (userActivity) => userActivity === activity,
           ) > -1,
       );
+      if (hasPermission) return true;
+      else
+        throw new ForbiddenException(
+          "User doesn't permission to access this resource",
+        );
+    }
   }
 }

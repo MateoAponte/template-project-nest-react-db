@@ -5,7 +5,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { Rol } from './enums/Rol';
-import { Activities } from './enums/Activities';
+import { Activity } from './enums';
 
 @Entity()
 export class User {
@@ -42,11 +42,11 @@ export class User {
 
   @Column({
     type: 'enum',
-    enum: Object.values(Activities),
+    enum: Object.values(Activity),
     array: true,
-    default: [Activities.READER],
+    default: [Activity.READER],
   })
-  activities: Activities[];
+  activities: Activity[];
 
   @Column({
     type: 'timestamp',
