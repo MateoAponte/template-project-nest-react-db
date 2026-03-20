@@ -1,4 +1,4 @@
-GET http://localhost:3000/user/bcf0f570-1ac0-4e9e-9993-f8a501b0ab08
+GET http://localhost:3000/user/ee7288cf-9d78-4ddf-b039-4ecd1b3ea2ab
 
 GET http://localhost:3000/user
 
@@ -8,10 +8,10 @@ Content-Type: application/json
 {
   "name": "John Doe",
   "email": "john@example.com",
-  "password": "secret"
+  "password": "Abcd!123456789"
 }
 
-PATCH http://localhost:3000/user/bcf0f570-1ac0-4e9e-9993-f8a501b0ab08
+PATCH http://localhost:3000/user/ee7288cf-9d78-4ddf-b039-4ecd1b3ea2ab
 Content-Type: application/json
 
 {
@@ -20,4 +20,4 @@ Content-Type: application/json
   "password": "secret"
 }
 
-DELETE http://localhost:3000/user/bcf0f570-1ac0-4e9e-9993-f8a501b0ab08
+DELETE http://localhost:3000/user/ee7288cf-9d78-4ddf-b039-4ecd1b3ea2ab

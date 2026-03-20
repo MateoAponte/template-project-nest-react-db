@@ -4,6 +4,8 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { Rol } from './enums/Rol';
+import { Activities } from './enums/Activities';
 
 @Entity()
 export class User {
@@ -30,6 +32,21 @@ export class User {
     length: 255,
   })
   password: string;
+
+  @Column({
+    type: 'enum',
+    enum: Object.values(Rol),
+    default: Rol.USER,
+  })
+  rol: Rol;
+
+  @Column({
+    type: 'enum',
+    enum: Object.values(Activities),
+    array: true,
+    default: [Activities.READER],
+  })
+  activities: Activities[];
 
   @Column({
     type: 'timestamp',

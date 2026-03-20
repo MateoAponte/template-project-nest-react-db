@@ -4,13 +4,32 @@ import { UpdateUserDto } from '../dto/update-user.dto';
 import { UserRepositoryService } from './user.repository.service';
 import { User } from '../user.entity';
 import { DeleteResult, UpdateResult } from 'typeorm';
+import { AuthService } from 'src/auth/auth.service';
 
 @Injectable()
 export class UserService {
-  constructor(private readonly userRepository: UserRepositoryService) {}
+  constructor(
+    /**
+     * Inject the UserService
+     * @param userRepository - Inject the UserRepositoryService
+     */
+    private readonly userRepository: UserRepositoryService,
 
-  create(createUserDto: CreateUserDto): Promise<User> {
-    return this.userRepository.createUser(createUserDto);
+    /**
+     * Inject the AuthService
+     * @param authService - Inject the AuthService
+     */
+    private readonly authService: AuthService,
+  ) {}
+
+  async create(createUserDto: CreateUserDto): Promise<User> {
+    const hashPass = await this.authService.hashPassword(
+      createUserDto.password,
+    );
+    return this.userRepository.createUser({
+      ...createUserDto,
+      password: hashPass,
+    });
   }
 
   findAll(): Promise<User[]> {
