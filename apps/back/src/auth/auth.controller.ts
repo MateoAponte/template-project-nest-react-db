@@ -7,10 +7,14 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiTags } from '@nestjs/swagger';
 import { LoginDto, TokenDto, TokenUserDto } from './dtos';
 import { AuthService } from './auth.service';
 import type { Request } from 'express';
+import {
+  LoginDocumentation,
+  RefreshDocumentation,
+} from './decorators/authDocumentation.decorator';
 
 @ApiTags('auth')
 @Controller('auth')
@@ -22,21 +26,13 @@ export class AuthController {
     private readonly authService: AuthService,
   ) {}
 
-  @ApiResponse({
-    status: 200,
-    description: 'Returns a JWT token.',
-  })
-  @ApiResponse({ status: 400, description: 'Bad Request.' })
+  @LoginDocumentation()
   @Post('login')
   login(@Body() body: LoginDto): Promise<TokenUserDto> {
     return this.authService.login(body);
   }
 
-  @ApiResponse({
-    status: 200,
-    description: 'Returns a new JWT token.',
-  })
-  @ApiResponse({ status: 401, description: 'Unauthorized.' })
+  @RefreshDocumentation()
   @UseGuards(AuthGuard('refresh-token'))
   @Post('refresh')
   refresh(@Req() req: Request): TokenUserDto {
@@ -48,11 +44,6 @@ export class AuthController {
     return this.authService.refresh(refreshToken);
   }
 
-  @ApiResponse({
-    status: 200,
-    description: 'Returns a new JWT token.',
-  })
-  @ApiResponse({ status: 400, description: 'Bad Request.' })
   @Post('encrypt')
   encrypt(@Body() encrypt: TokenDto): TokenDto {
     return this.authService.encrypt(encrypt);
