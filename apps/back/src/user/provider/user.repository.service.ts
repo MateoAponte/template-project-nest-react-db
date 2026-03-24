@@ -39,20 +39,13 @@ export class UserRepositoryService {
     });
   }
 
-  updateUser(
-    id: string,
-    body: UpdateUserDto,
-  ): Promise<UpdateResult> | undefined {
-    const user = this.findUserById(id);
-
-    if (user !== null) {
-      return this.repo.update(
-        { id },
-        {
-          ...body,
-        },
-      );
-    }
+  updateUser(id: string, body: UpdateUserDto): Promise<UpdateResult> {
+    return this.repo.update(
+      { id },
+      {
+        ...body,
+      },
+    );
   }
 
   deleteUser(id: string): Promise<DeleteResult> {

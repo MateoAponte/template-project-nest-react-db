@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  ConflictException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { UpdateUserDto } from '../dto/update-user.dto';
 import { UserRepositoryService } from './user.repository.service';
 import { DeleteResult, UpdateResult } from 'typeorm';
@@ -26,10 +30,20 @@ export class UserService {
     const hashPass = await this.authService.hashPassword(
       createUserDto.password,
     );
+
+    const existingUser = await this.userRepository.findUserByEmail(
+      createUserDto.email,
+    );
+    if (existingUser !== null)
+      throw new ConflictException(
+        `User with email ${createUserDto.email} already exists`,
+      );
+
     const user = await this.userRepository.createUser({
       ...createUserDto,
       password: hashPass,
     });
+
     return UserResponseDto.fromEntity(user);
   }
 
@@ -46,14 +60,23 @@ export class UserService {
     return UserResponseDto.fromEntity(user);
   }
 
-  update(
+  async update(
     id: string,
     updateUserDto: UpdateUserDto,
-  ): Promise<UpdateResult> | undefined {
+  ): Promise<UpdateResult> {
+    const user = await this.userRepository.findUserById(id);
+    if (user === null)
+      throw new NotFoundException(`User with id ${id} not found`);
+
     return this.userRepository.updateUser(id, updateUserDto);
   }
 
-  remove(id: string): Promise<DeleteResult> {
+  async remove(id: string): Promise<DeleteResult> {
+    const user = await this.userRepository.findUserById(id);
+
+    if (user === null)
+      throw new NotFoundException(`User with id ${id} not found`);
+
     return this.userRepository.deleteUser(id);
   }
 }

@@ -11,6 +11,7 @@ import {
 } from 'src/common/decorators';
 import { UserResponseDto } from '../dto/user-response.dto';
 import { ApiSuccessResponseDto } from 'src/common/dto';
+import { ApiConflictResponses } from 'src/common/decorators/apiConflictResponses.decorator';
 
 export const GetUserDocumentation = (): MethodDecorator =>
   applyDecorators(
@@ -61,28 +62,14 @@ export const CreateUserDocumentation = (): MethodDecorator =>
     }),
     ApiAuthResponses('user'),
     ApiNotFoundResponses('user'),
+    ApiConflictResponses('user'),
     ApiErrorServerResponses('user'),
   );
 
 export const UpdateUserDocumentation = (): MethodDecorator =>
   applyDecorators(
-    ApiOkResponse({
-      description: 'Update an existing user.',
-      example: {
-        message: 'User updated',
-        data: {
-          id: 'd3f0ffc6-b449-4435-ae39-af258cf4d1b5',
-        },
-        statusCode: HttpStatus.OK,
-      },
-    }),
     ApiNoContentResponse({
-      description: 'Can´t delete user',
-      example: {
-        statusCode: HttpStatus.NO_CONTENT,
-        data: {},
-        message: 'Can´t delete user',
-      },
+      description: 'User updated successfully.',
     }),
     ApiAuthResponses('user/:id'),
     ApiNotFoundResponses('user/:id'),
@@ -91,23 +78,8 @@ export const UpdateUserDocumentation = (): MethodDecorator =>
 
 export const DeleteUserDocumentation = (): MethodDecorator =>
   applyDecorators(
-    ApiOkResponse({
-      description: 'Delete an existing user.',
-      example: {
-        statusCode: HttpStatus.OK,
-        data: {
-          id: 'd3f0ffc6-b449-4435-ae39-af258cf4d1b5',
-        },
-        message: 'User deleted',
-      },
-    }),
     ApiNoContentResponse({
-      description: 'Can´t delete user',
-      example: {
-        statusCode: HttpStatus.NO_CONTENT,
-        data: {},
-        message: 'Can´t delete user',
-      },
+      description: 'User deleted successfully.',
     }),
     ApiAuthResponses('user/:id'),
     ApiNotFoundResponses('user/:id'),

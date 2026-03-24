@@ -44,6 +44,8 @@ export default {
       2,
       'always',
       [
+        BACK_FOLDER,
+        FRONT_FOLDER,
         ...FRONT_SCOPES,
         ...BACK_SCOPES,
         ...COMMON_MODULES,
