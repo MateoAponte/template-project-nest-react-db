@@ -32,4 +32,10 @@ export default tseslint.config(
       '@darraghor/nestjs-typed/injectable-should-be-provided': 'off',
     },
   },
+  {
+    files: ['**/*.controller.ts'],
+    rules: {
+      '@darraghor/nestjs-typed/api-method-should-specify-api-response': 'off',
+    },
+  },
 );

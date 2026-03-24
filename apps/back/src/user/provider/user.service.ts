@@ -1,10 +1,10 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { CreateUserDto } from '../dto/create-user.dto';
 import { UpdateUserDto } from '../dto/update-user.dto';
 import { UserRepositoryService } from './user.repository.service';
-import { User } from '../user.entity';
 import { DeleteResult, UpdateResult } from 'typeorm';
 import { AuthService } from 'src/auth/auth.service';
+import { CreateUserDto } from '../dto/create-user.dto';
+import { UserResponseDto } from '../dto/user-response.dto';
 
 @Injectable()
 export class UserService {
@@ -22,26 +22,28 @@ export class UserService {
     private readonly authService: AuthService,
   ) {}
 
-  async create(createUserDto: CreateUserDto): Promise<User> {
+  async create(createUserDto: CreateUserDto): Promise<UserResponseDto> {
     const hashPass = await this.authService.hashPassword(
       createUserDto.password,
     );
-    return this.userRepository.createUser({
+    const user = await this.userRepository.createUser({
       ...createUserDto,
       password: hashPass,
     });
+    return UserResponseDto.fromEntity(user);
   }
 
-  findAll(): Promise<User[]> {
-    return this.userRepository.findAll();
+  async findAll(): Promise<UserResponseDto[]> {
+    const users = await this.userRepository.findAll();
+    return users.map((user) => UserResponseDto.fromEntity(user));
   }
 
-  async findOne(id: string): Promise<User | null> {
+  async findOne(id: string): Promise<UserResponseDto> {
     const user = await this.userRepository.findUserById(id);
 
     if (user == null)
       throw new NotFoundException(`User with id ${id} not found`);
-    return user;
+    return UserResponseDto.fromEntity(user);
   }
 
   update(

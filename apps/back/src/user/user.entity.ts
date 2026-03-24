@@ -6,6 +6,7 @@ import {
 } from 'typeorm';
 import { Rol } from './enums/Rol';
 import { Activity } from './enums';
+import { Exclude } from 'class-transformer';
 
 @Entity()
 export class User {
@@ -27,6 +28,7 @@ export class User {
   })
   email: string;
 
+  @Exclude()
   @Column({
     type: 'varchar',
     length: 255,
@@ -48,12 +50,14 @@ export class User {
   })
   activities: Activity[];
 
+  @Exclude()
   @Column({
     type: 'timestamp',
     default: () => 'CURRENT_TIMESTAMP',
   })
   createdAt: Date;
 
+  @Exclude()
   @UpdateDateColumn()
   updatedAt: Date;
 }

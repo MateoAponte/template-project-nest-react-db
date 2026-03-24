@@ -29,7 +29,7 @@ export class JwtProvider {
 
     const access_token = this.jwtService.sign(jwtPayload, {
       secret: this.aesProvider.decrypt(AT_SECRET, AES_KEY),
-      expiresIn: '15m',
+      expiresIn: '7d',
     });
     const refresh_token = this.jwtService.sign(jwtPayload, {
       secret: this.aesProvider.decrypt(RT_SECRET, AES_KEY),

@@ -7,7 +7,7 @@ import {
 import { Reflector } from '@nestjs/core';
 import { Observable } from 'rxjs';
 import { ACTIVITY_KEY } from '../decorators/activities.decorator';
-import { IAuthRequest } from '../interfaces/AuthRequest.interface';
+import { IAuthRequest } from '../interfaces/IAuthRequest';
 import { Activity } from 'src/user/enums';
 
 @Injectable()

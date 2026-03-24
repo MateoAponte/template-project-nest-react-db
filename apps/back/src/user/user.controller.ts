@@ -9,67 +9,60 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { UserService } from './provider/user.service';
-import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { ApiResponse, ApiTags } from '@nestjs/swagger';
-import { User } from './user.entity';
+import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { DeleteResult, UpdateResult } from 'typeorm';
-import { Activities, Roles } from 'src/auth/decorators';
 import { Rol, Activity } from './enums';
 import { ActivitiesGuard, JwtAuthGuard, RolesGuard } from 'src/auth/guards';
+import {
+  CreateUserDocumentation,
+  DeleteUserDocumentation,
+  GetAllUsersDocumentation,
+  GetUserDocumentation,
+  UpdateUserDocumentation,
+} from './decorators/userDocumentation.decorator';
+import { CreateUserDto } from './dto/create-user.dto';
+import { UserResponseDto } from './dto/user-response.dto';
+import { AccessValidator } from './decorators/accessValidator.decorator';
 
+@ApiBearerAuth()
 @ApiTags('users')
+@UseGuards(JwtAuthGuard, RolesGuard, ActivitiesGuard)
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  @ApiResponse({
-    status: 201,
-    description: 'The user has been successfully created.',
-  })
-  @ApiResponse({ status: 400, description: 'Bad Request.' })
+  @CreateUserDocumentation()
+  @AccessValidator()
   @Post()
-  @UseGuards(JwtAuthGuard, RolesGuard, ActivitiesGuard)
-  @Roles(Rol.ADMIN)
-  @Activities(Activity.ADMIN)
-  create(@Body() createUserDto: CreateUserDto): Promise<User> {
+  create(@Body() createUserDto: CreateUserDto): Promise<UserResponseDto> {
     return this.userService.create(createUserDto);
   }
 
-  @ApiResponse({
-    status: 200,
-    description: 'Returns an array of users.',
+  @GetAllUsersDocumentation()
+  @AccessValidator({
+    roles: [Rol.USER],
+    activities: [Activity.READER],
   })
-  @ApiResponse({ status: 400, description: 'Bad Request.' })
-  @UseGuards(JwtAuthGuard, RolesGuard, ActivitiesGuard)
-  @Roles(Rol.USER, Rol.ADMIN)
-  @Activities(Activity.READER, Activity.ADMIN)
   @Get()
-  findAll(): Promise<User[]> {
+  findAll(): Promise<UserResponseDto[]> {
     return this.userService.findAll();
   }
 
-  @ApiResponse({
-    status: 200,
-    description: 'Returns a user by id.',
+  @GetUserDocumentation()
+  @AccessValidator({
+    roles: [Rol.USER],
+    activities: [Activity.READER],
   })
-  @ApiResponse({ status: 400, description: 'Bad Request.' })
-  @UseGuards(JwtAuthGuard, RolesGuard, ActivitiesGuard)
-  @Roles(Rol.USER, Rol.ADMIN)
-  @Activities(Activity.READER, Activity.ADMIN)
   @Get(':id')
-  findOne(@Param('id') id: string): Promise<User | null> {
+  findOne(@Param('id') id: string): Promise<UserResponseDto> {
     return this.userService.findOne(id);
   }
 
-  @ApiResponse({
-    status: 200,
-    description: 'The user has been successfully updated.',
+  @UpdateUserDocumentation()
+  @AccessValidator({
+    activities: [Activity.EDITOR, Activity.WRITER],
   })
-  @ApiResponse({ status: 400, description: 'Bad Request.' })
-  @UseGuards(JwtAuthGuard, RolesGuard, ActivitiesGuard)
-  @Roles(Rol.ADMIN)
-  @Activities(Activity.EDITOR, Activity.WRITER, Activity.ADMIN)
   @Patch(':id')
   update(
     @Param('id') id: string,
@@ -78,13 +71,10 @@ export class UserController {
     return this.userService.update(id, updateUserDto);
   }
 
-  @ApiResponse({
-    status: 200,
-    description: 'The user has been successfully deleted.',
+  @DeleteUserDocumentation()
+  @AccessValidator({
+    activities: [Activity.EDITOR, Activity.WRITER],
   })
-  @UseGuards(JwtAuthGuard, RolesGuard, ActivitiesGuard)
-  @Roles(Rol.ADMIN)
-  @Activities(Activity.EDITOR, Activity.WRITER, Activity.ADMIN)
   @ApiResponse({ status: 400, description: 'Bad Request.' })
   @Delete(':id')
   remove(@Param('id') id: string): Promise<DeleteResult> {

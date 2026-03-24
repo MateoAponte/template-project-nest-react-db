@@ -17,6 +17,9 @@ export const envValidationSchema = Joi.object({
   // JWT
   JWT_SECRET: Joi.string().min(16).required(),
   JWT_EXPIRES_IN: Joi.string().default('7d'),
+
+  // Prefix
+  API_PREFIX: Joi.string().default('api/v1'),
 }).unknown(true);
 
 export function validateEnv(config: Record<string, any>): Record<string, any> {
