@@ -4,6 +4,7 @@ import { UserRepositoryService } from 'src/user/provider/user.repository.service
 import { LoginDto, TokenDto, TokenUserDto } from './dtos';
 import { AesProvider, JwtProvider } from './providers';
 import { AES_KEY } from './constants';
+import { EncoderService } from 'src/common/services/Encoder.service';
 
 @Injectable()
 export class AuthService {
@@ -46,10 +47,15 @@ export class AuthService {
     const user = await this.usersRepositoryService.findUserByEmail(body.email);
     if (!!user === false) throw new UnauthorizedException('User not found');
 
-    const isValidate = await this.compareHash(body.password, user.password);
+    const rPass = new EncoderService().decode(body.password);
+
+    const isValidate = await this.compareHash(rPass, user.password);
     if (!isValidate) throw new UnauthorizedException('Incorrect credentials');
 
-    return this.jwtProvider.signTokens(user);
+    return {
+      ...this.jwtProvider.signTokens(user),
+      user,
+    };
   }
 
   refresh(refreshToken: string): TokenUserDto {

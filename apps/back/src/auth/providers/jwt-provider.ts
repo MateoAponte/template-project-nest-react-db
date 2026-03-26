@@ -18,13 +18,13 @@ export class JwtProvider {
     private readonly aesProvider: AesProvider,
   ) {}
 
-  signTokens(user: TokenUserDto): TokenUserDto {
+  signTokens(token: TokenUserDto): TokenUserDto {
     const jwtPayload = {
-      id: user.id,
-      email: user.email,
-      rol: user.rol,
-      activities: user.activities,
-      name: user.name,
+      id: token.id,
+      email: token.email,
+      rol: token.rol,
+      activities: token.activities,
+      name: token.name,
     };
 
     const access_token = this.jwtService.sign(jwtPayload, {
