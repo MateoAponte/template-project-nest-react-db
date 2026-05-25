@@ -12,6 +12,7 @@ export const Login = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
@@ -23,7 +24,9 @@ export const Login = () => {
   });
 
   const onSubmit = async (values: LoginFormValues) => {
-    await login(values);
+    await await login(values).then(() => {
+      reset();
+    });
   };
 
   return (

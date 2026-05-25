@@ -22,7 +22,7 @@ export interface AppRouteConfig {
   element: ReactNode;
   layout?: AppLayout;
   isPrivate?: boolean;
-  roles?: number[];
+  rol?: number;
   permissions?: number[];
 }
 
@@ -75,17 +75,13 @@ export const AppRouter = () => {
           <Route element={<PrivateLayout />}>
             {' '}
             {privateRoutes.map((route) => {
-              const hasAccessRules =
-                (route.roles?.length ?? 0) > 0 || (route.permissions?.length ?? 0) > 0;
+              const hasAccessRules = !!route.rol || (route.permissions?.length ?? 0) > 0;
               if (hasAccessRules) {
                 return (
                   <Route
                     key={route.path}
                     element={
-                      <AuthorizedRoute
-                        roles={route.roles}
-                        permissions={route.permissions}
-                      />
+                      <AuthorizedRoute rol={route.rol} permissions={route.permissions} />
                     }
                   >
                     {' '}

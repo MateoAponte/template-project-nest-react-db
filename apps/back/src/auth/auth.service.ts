@@ -1,10 +1,18 @@
-import { Inject, Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  ConflictException,
+  Inject,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 import { UserRepositoryService } from 'src/user/provider/user.repository.service';
 import { LoginDto, TokenDto, TokenUserDto } from './dtos';
 import { AesProvider, JwtProvider } from './providers';
 import { AES_KEY } from './constants';
-import { EncoderService } from 'src/common/services/Encoder.service';
+import { EncoderService } from 'src/common/services/encoder.service';
+import { CreateUserDto } from 'src/user/dto/create-user.dto';
+import { UserResponseDto } from 'src/user/dto/user-response.dto';
+import { MatchPass } from 'src/user/helpers/CheckExpression';
 
 @Injectable()
 export class AuthService {
@@ -70,5 +78,30 @@ export class AuthService {
       rt_secret: rts,
       at_secret: ats,
     };
+  }
+
+  async register(createUserDto: CreateUserDto): Promise<UserResponseDto> {
+    if (!MatchPass(createUserDto.password)) {
+      throw new ConflictException(
+        'Password must contain at least 12 characters, one uppercase letter, one lowercase letter, one number and one special character (!@#$%^&*)',
+      );
+    }
+
+    const hashPass = await this.hashPassword(createUserDto.password);
+
+    const existingUser = await this.usersRepositoryService.findUserByEmail(
+      createUserDto.email,
+    );
+    if (existingUser !== null)
+      throw new ConflictException(
+        `User with email ${createUserDto.email} already exists`,
+      );
+
+    const user = await this.usersRepositoryService.createUser({
+      ...createUserDto,
+      password: hashPass,
+    });
+
+    return UserResponseDto.fromEntity(user);
   }
 }

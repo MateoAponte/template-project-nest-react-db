@@ -32,7 +32,7 @@ docker-compose down -v
 
 ### 1. **Database (PostgreSQL)**
 
-- **Container**: `template-db`
+- **Container**: `template_db`
 - **Port**: `5432`
 - **Access**:
   - From backend: `db:5432` (Docker network)

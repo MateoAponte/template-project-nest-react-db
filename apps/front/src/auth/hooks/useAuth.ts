@@ -11,7 +11,7 @@ export const useAuthorization = () => {
     hasRole: (role: number) => hasRole(user, role),
     hasPermission: (permission: number) => hasPermission(user, permission),
     canAccess: (options: {
-      roles?: number[];
+      rol?: number;
       permissions?: number[];
       requireAll?: boolean;
     }) => canAccess(user, options),

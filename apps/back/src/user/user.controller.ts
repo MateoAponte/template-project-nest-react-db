@@ -1,7 +1,6 @@
 import {
   Controller,
   Get,
-  Post,
   Body,
   Patch,
   Param,
@@ -17,13 +16,11 @@ import { DeleteResult, UpdateResult } from 'typeorm';
 import { Rol, Activity } from './enums';
 import { ActivitiesGuard, JwtAuthGuard, RolesGuard } from 'src/auth/guards';
 import {
-  CreateUserDocumentation,
   DeleteUserDocumentation,
   GetAllUsersDocumentation,
   GetUserDocumentation,
   UpdateUserDocumentation,
 } from './decorators/userDocumentation.decorator';
-import { CreateUserDto } from './dto/create-user.dto';
 import { UserResponseDto } from './dto/user-response.dto';
 import { AccessValidator } from './decorators/accessValidator.decorator';
 
@@ -33,18 +30,9 @@ import { AccessValidator } from './decorators/accessValidator.decorator';
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
-
-  @CreateUserDocumentation()
-  @AccessValidator()
-  @HttpCode(HttpStatus.CREATED)
-  @Post()
-  create(@Body() createUserDto: CreateUserDto): Promise<UserResponseDto> {
-    return this.userService.create(createUserDto);
-  }
-
   @GetAllUsersDocumentation()
   @AccessValidator({
-    roles: [Rol.USER],
+    rol: Rol.USER,
     activities: [Activity.READER],
   })
   @Get()
@@ -54,7 +42,7 @@ export class UserController {
 
   @GetUserDocumentation()
   @AccessValidator({
-    roles: [Rol.USER],
+    rol: Rol.USER,
     activities: [Activity.READER],
   })
   @Get(':id')

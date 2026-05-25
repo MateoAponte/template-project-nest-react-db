@@ -1,13 +1,7 @@
-import {
-  ConflictException,
-  Injectable,
-  NotFoundException,
-} from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { UpdateUserDto } from '../dto/update-user.dto';
 import { UserRepositoryService } from './user.repository.service';
 import { DeleteResult, UpdateResult } from 'typeorm';
-import { AuthService } from 'src/auth/auth.service';
-import { CreateUserDto } from '../dto/create-user.dto';
 import { UserResponseDto } from '../dto/user-response.dto';
 
 @Injectable()
@@ -18,34 +12,7 @@ export class UserService {
      * @param userRepository - Inject the UserRepositoryService
      */
     private readonly userRepository: UserRepositoryService,
-
-    /**
-     * Inject the AuthService
-     * @param authService - Inject the AuthService
-     */
-    private readonly authService: AuthService,
   ) {}
-
-  async create(createUserDto: CreateUserDto): Promise<UserResponseDto> {
-    const hashPass = await this.authService.hashPassword(
-      createUserDto.password,
-    );
-
-    const existingUser = await this.userRepository.findUserByEmail(
-      createUserDto.email,
-    );
-    if (existingUser !== null)
-      throw new ConflictException(
-        `User with email ${createUserDto.email} already exists`,
-      );
-
-    const user = await this.userRepository.createUser({
-      ...createUserDto,
-      password: hashPass,
-    });
-
-    return UserResponseDto.fromEntity(user);
-  }
 
   async findAll(): Promise<UserResponseDto[]> {
     const users = await this.userRepository.findAll();

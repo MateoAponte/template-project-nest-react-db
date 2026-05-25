@@ -15,6 +15,7 @@ import {
   LoginDocumentation,
   RefreshDocumentation,
 } from './decorators/authDocumentation.decorator';
+import { CreateUserDto } from 'src/user/dto/create-user.dto';
 
 @ApiTags('auth')
 @Controller('auth')
@@ -47,5 +48,10 @@ export class AuthController {
   @Post('encrypt')
   encrypt(@Body() encrypt: TokenDto): TokenDto {
     return this.authService.encrypt(encrypt);
+  }
+
+  @Post('register')
+  async register(@Body() createUserDto: CreateUserDto): Promise<TokenUserDto> {
+    return this.authService.register(createUserDto);
   }
 }

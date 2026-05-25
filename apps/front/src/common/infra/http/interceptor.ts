@@ -72,6 +72,7 @@ const onResponseError = async (error: AxiosError) => {
       setSession({
         at_secret: response.at_secret,
         rt_secret: response.rt_secret,
+        user: response.user,
       });
 
       processQueue(null, response.at_secret);
@@ -87,7 +88,6 @@ const onResponseError = async (error: AxiosError) => {
       const { logout } = useAppStore.getState();
       logout();
 
-      window.location.href = '/login';
       return Promise.reject(refreshError);
     } finally {
       isRefreshing = false;

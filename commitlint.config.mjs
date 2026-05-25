@@ -28,6 +28,7 @@ const COMMON_MODULES = [
 // Apps Names
 const FRONT_FOLDER = 'front';
 const BACK_FOLDER = 'back';
+const MIX_FOLDER = 'front/back';
 
 // Get all modules for each kind of app
 const FRONT_SCOPES = getModules(`./apps/${FRONT_FOLDER}/src/features`, FRONT_FOLDER);
@@ -46,6 +47,7 @@ export default {
       [
         BACK_FOLDER,
         FRONT_FOLDER,
+        MIX_FOLDER,
         ...FRONT_SCOPES,
         ...BACK_SCOPES,
         ...COMMON_MODULES,

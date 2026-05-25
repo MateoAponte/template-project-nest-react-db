@@ -1,4 +1,4 @@
-import './spinner.scss';
+import './Spinner.scss';
 
 type SpinnerSize = 'sm' | 'md' | 'lg';
 
