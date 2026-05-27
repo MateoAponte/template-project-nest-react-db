@@ -1,0 +1,51 @@
+version: 2.1
+
+jobs:
+  test:
+    docker:
+      - image: cimg/node:20.11
+      - image: cimg/postgres:16.2
+        environment:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: template_test_db
+
+    environment:
+      NODE_ENV: test
+      DB_HOST: localhost
+      DB_PORT_TEST: 5434
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      DB_NAME_TEST: template_test_db
+
+    steps:
+      - checkout
+
+      - restore_cache:
+          keys:
+            - node-deps-{{ checksum "package-lock.json" }}
+
+      - run:
+          name: Install dependencies
+          command: npm ci
+
+      - save_cache:
+          paths:
+            - ~/.npm
+          key: node-deps-{{ checksum "package-lock.json" }}
+
+      - run:
+          name: Run e2e tests with coverage
+          command: npm run test:e2e
+
+      - store_artifacts:
+          path: coverage
+          destination: coverage
+
+      - store_test_results:
+          path: test-results
+
+workflows:
+  test:
+    jobs:
+      - test

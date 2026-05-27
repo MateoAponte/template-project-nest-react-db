@@ -9,5 +9,16 @@
     "^src/(.*)$": "<rootDir>/src/$1",
     "^config/(.*)$": "<rootDir>/config/$1",
     "^test/(.*)$": "<rootDir>/test/$1"
+  },
+  "collectCoverage": true,
+  "coverageDirectory": "coverage/e2e",
+  "coverageReporters": ["text", "lcov", "html", "json-summary"],
+  "coverageThreshold": {
+    "global": {
+      "branches": 70,
+      "functions": 70,
+      "lines": 70,
+      "statements": 70
+    }
   }
 }
