@@ -11,8 +11,6 @@ export const createAuthSlice: StateCreator<IAuthSlice> = (set) => ({
   setSession: (payload: ISessionPayload) => {
     sessionStorageService.set(payload);
 
-    console.log(payload.user);
-
     set({
       accessToken: payload.at_secret,
       isAuthenticated: true,

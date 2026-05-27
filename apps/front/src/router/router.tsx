@@ -12,7 +12,7 @@ import { Login } from '../auth/views/Login';
 
 const DashboardPage = () => <h1>Dashboard</h1>;
 const ProfilePage = () => <h1>Profile</h1>;
-const UsersPage = () => <h1>Users</h1>;
+// const UsersPage = () => <h1>Users</h1>;
 
 const LoginPage = () => <Login />;
 export type AppLayout = 'public' | 'private' | 'system';
@@ -41,13 +41,13 @@ export const appRoutes: AppRouteConfig[] = [
     isPrivate: true,
   },
   { path: ROUTES.profile, element: <ProfilePage />, layout: 'private', isPrivate: true },
-  {
-    path: ROUTES.users,
-    element: <UsersPage />,
-    layout: 'private',
-    isPrivate: true,
-    permissions: [0],
-  },
+  // {
+  //   path: ROUTES.users,
+  //   element: <UsersPage />,
+  //   layout: 'private',
+  //   isPrivate: true,
+  //   permissions: [0],
+  // },
   { path: ROUTES.unauthorized, element: <UnauthorizedPage />, layout: 'system' },
   { path: '*', element: <NotFoundPage />, layout: 'system' },
 ];

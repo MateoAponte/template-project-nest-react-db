@@ -24,7 +24,7 @@ export const Login = () => {
   });
 
   const onSubmit = async (values: LoginFormValues) => {
-    await await login(values).then(() => {
+    await login(values).finally(() => {
       reset();
     });
   };
@@ -92,6 +92,7 @@ export const Login = () => {
 
             <button
               type="submit"
+              role="button"
               disabled={isSubmitting}
               className="inline-flex relative w-full items-center justify-center rounded-xl cursor-pointer bg-sky-600 px-4 py-3 text-sm font-medium text-white transition hover:bg-sky-700 disabled:cursor-not-allowed disabled:opacity-60"
             >

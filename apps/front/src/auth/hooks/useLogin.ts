@@ -35,13 +35,13 @@ export const useLogin = () => {
 
       navigate(ROUTES.dashboard, { replace: true });
     } catch (error: any) {
-      const { message } = error.response.data;
+      const { message } = error.response?.data || error;
       const capitalizedMessage = message.charAt(0).toUpperCase() + message.slice(1);
 
       setSubmitError(
         error instanceof Error ? capitalizedMessage : 'Unable to sign in right now.',
       );
-      throw error;
+      return error;
     } finally {
       setIsSubmitting(false);
     }

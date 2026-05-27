@@ -11,7 +11,8 @@ export const canAccess = (user: IUser | null, options: AccessOptions): boolean =
 
   const { rol, permissions = [], requireAll = false } = options;
 
-  const hasRoles = rol !== undefined ? true : user.rol === rol;
+  
+  const hasRoles = rol === undefined ? true : user.rol === rol;
 
   const hasPermissions =
     permissions.length === 0

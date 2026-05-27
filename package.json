@@ -41,6 +41,7 @@
     "@types/node": "^22.19.15",
     "@typescript-eslint/eslint-plugin": "^8.57.1",
     "@typescript-eslint/parser": "^8.57.1",
+    "@vitejs/plugin-react": "^6.0.2",
     "cross-env": "^10.1.0",
     "dotenv": "^17.3.1",
     "eslint": "^9.18.0",
