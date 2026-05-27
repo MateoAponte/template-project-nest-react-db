@@ -1,7 +1,7 @@
 POST http://localhost:3000/api/v1/auth/login
 Content-Type: application/json
 {
-  "email": "john@example.com",
+  "email": "john@example2.com",
   "password": "QWJjZCExMjM0NTY3ODk="
 }
 
@@ -10,5 +10,7 @@ Content-Type: application/json
 {
   "name": "John Doe",
   "email": "john@example2.com",
-  "password": "Abcd!123456789"
+  "password": "Abcd!123456789",
+  "rol": 0,
+  "activities": [0]
 }

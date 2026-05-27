@@ -3,6 +3,7 @@
   "rootDir": "../",
   "testMatch": ["**/test/**/*.e2e.spec.ts"],
   "transform": { "^.+\\.(t|j)s$": "ts-jest" },
+  "setupFilesAfterEnv": ["<rootDir>/test/setup.ts"],
   "testEnvironment": "node",
   "moduleNameMapper": {
     "^src/(.*)$": "<rootDir>/src/$1",

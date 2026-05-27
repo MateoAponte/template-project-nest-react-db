@@ -4,13 +4,13 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImYxMWNjNGQ3L
 GET http://localhost:3000/api/v1/user
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImYxMWNjNGQ3LTliZjctNDc5OC05M2U1LWFhMmQ1OTFlNDg2MSIsImVtYWlsIjoiam9obkBleGFtcGxlLmNvbSIsInJvbCI6MSwiYWN0aXZpdGllcyI6WzFdLCJuYW1lIjoiSm9obiBEb2UiLCJpYXQiOjE3NzQ0NTg4MjAsImV4cCI6MTc3NTA2MzYyMH0.7Vnu7lIh_9LzZrGQr_MdE_v8xDeX9_H0fFwQXk7jPys
 
-PATCH http://localhost:3000/api/v1/user/f11cc4d7-9bf7-4798-93e5-aa2d591e4861
+PATCH http://localhost:3000/api/v1/user/5f7aa3da-990a-419a-ab1a-4a1bb3b85273
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImYxMWNjNGQ3LTliZjctNDc5OC05M2U1LWFhMmQ1OTFlNDg2MSIsImVtYWlsIjoiam9obkBleGFtcGxlLmNvbSIsInJvbCI6MSwiYWN0aXZpdGllcyI6WzFdLCJuYW1lIjoiSm9obiBEb2UiLCJpYXQiOjE3NzQ0NTg4MjAsImV4cCI6MTc3NTA2MzYyMH0.7Vnu7lIh_9LzZrGQr_MdE_v8xDeX9_H0fFwQXk7jPys
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmN2FhM2RhLTk5MGEtNDE5YS1hYjFhLTRhMWJiM2I4NTI3YiIsImVtYWlsIjoiam9obkBleGFtcGxlMi5jb20iLCJyb2wiOjAsImFjdGl2aXRpZXMiOlswXSwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNzc5ODk2NTA1LCJleHAiOjE3ODA1MDEzMDV9.FHKNlPbhiKIdUSAkZq74La6OJHyJCG7LlPcDBdswnCY
 
 {
   "name": "John Doe 2",
-  "email": "john@example.com",
+  "email": "john@example2.com",
   "password": "Abcd!123456789"
 }
 
