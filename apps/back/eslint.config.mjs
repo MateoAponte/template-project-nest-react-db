@@ -7,7 +7,7 @@ import eslintNestJs from '@darraghor/eslint-plugin-nestjs-typed';
 export default tseslint.config(
   {
     extends: [...baseExtends, eslintNestJs.configs.flatRecommended],
-    ignores: ['config/**/*'],
+    ignores: ['config/**/*', 'test/**/*'],
   },
   {
     languageOptions: {
