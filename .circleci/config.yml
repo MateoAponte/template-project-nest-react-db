@@ -32,15 +32,20 @@ jobs:
             pnpm -v
 
       - run:
+          name: Clean install
+          command: |
+            rm -rf node_modules apps/*/node_modules
+            pnpm config set store-dir .pnpm-store
+            pnpm install --frozen-lockfile
+
+      - run:
           name: Install dependencies
           command: |
-            node -v
-            pnpm -v
             pnpm config set store-dir .pnpm-store
             pnpm install --frozen-lockfile --config.optional=true
       - save_cache:
           paths:
-            - ~/.npm
+            - .pnpm-store
           key: pnpm-store-v2-{{ checksum "pnpm-lock.yaml" }}
 
       - run:

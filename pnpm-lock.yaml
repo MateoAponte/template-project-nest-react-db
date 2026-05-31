@@ -19,6 +19,9 @@ importers:
       '@commitlint/config-conventional':
         specifier: ^20.5.0
         version: 20.5.3
+      '@rolldown/binding-linux-x64-gnu':
+        specifier: ^1.0.3
+        version: 1.0.3
       '@types/node':
         specifier: ^22.19.15
         version: 22.19.19
@@ -1451,6 +1454,12 @@ packages:
 
   '@rolldown/binding-linux-x64-gnu@1.0.2':
     resolution: {integrity: sha512-0+bOkiQ779+r1WpoHOWHqncvyySci0vKph+myNDYb+im6meJAzHQXay6oEgnkHuUGouM1LKTZwqKpBow6Kj7CQ==}
+    engines: {node: ^20.19.0 || >=22.12.0}
+    cpu: [x64]
+    os: [linux]
+
+  '@rolldown/binding-linux-x64-gnu@1.0.3':
+    resolution: {integrity: sha512-B8m6tD5+/N5FeNQFbKlLA/2yVq9ycQP1SeedyEYYKWBNR3ZQbkvIUcNnDNM03lO1l5F2roiiFJGgvoLLyZXtSg==}
     engines: {node: ^20.19.0 || >=22.12.0}
     cpu: [x64]
     os: [linux]
@@ -6885,6 +6894,8 @@ snapshots:
 
   '@rolldown/binding-linux-x64-gnu@1.0.2':
     optional: true
+
+  '@rolldown/binding-linux-x64-gnu@1.0.3': {}
 
   '@rolldown/binding-linux-x64-musl@1.0.2':
     optional: true

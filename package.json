@@ -41,6 +41,7 @@
   "devDependencies": {
     "@commitlint/cli": "^20.5.0",
     "@commitlint/config-conventional": "^20.5.0",
+    "@rolldown/binding-linux-x64-gnu": "^1.0.3",
     "@types/node": "^22.19.15",
     "@typescript-eslint/eslint-plugin": "^8.57.1",
     "@typescript-eslint/parser": "^8.57.1",
