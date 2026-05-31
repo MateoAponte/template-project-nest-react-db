@@ -60,23 +60,6 @@ jobs:
           name: Create test env
           command: |
             printf "%s\n" \
-              "NODE_ENV=test" \
-              "PORT=3000" \
-              "DB_HOST=localhost" \
-              "DB_PORT=5432" \
-              "DB_PORT_TEST=5432" \
-              "DB_USER=postgres" \
-              "DB_PASSWORD=postgres" \
-              "DB_NAME=template_db" \
-              "DB_NAME_TEST=template_test_db" \
-              "JWT_SECRET=1234567890abcdefghijklmnopqrstuvwxyz" \
-              "JWT_EXPIRES_IN=7d" \
-              > .env
-
-      - run:
-          name: Create test env
-          command: |
-            printf "%s\n" \
             "NODE_ENV=test" \
             "PORT=3000" \
             "DB_HOST=localhost" \
