@@ -57,6 +57,23 @@ jobs:
             done
 
       - run:
+          name: Create test env
+          command: |
+            cat > .env <<EOF
+            NODE_ENV=test
+            PORT=3000
+            DB_HOST=localhost
+            DB_PORT=5432
+            DB_PORT_TEST=5432
+            DB_USER=postgres
+            DB_PASSWORD=postgres
+            DB_NAME=template_db
+            DB_NAME_TEST=template_test_db
+            JWT_SECRET=test-secret
+            JWT_EXPIRES_IN=7d
+            EOF
+
+      - run:
           name: Run e2e tests with coverage
           command: pnpm test
 
