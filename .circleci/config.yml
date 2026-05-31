@@ -20,12 +20,13 @@ jobs:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
           POSTGRES_DB: template_test_db
+
     steps:
       - checkout
 
       - restore_cache:
           keys:
-            - pnpm-store-v1-{{ checksum "pnpm-lock.yaml" }}
+            - pnpm-store-v2-{{ checksum "pnpm-lock.yaml" }}
 
       - run:
           name: Check versions
@@ -34,38 +35,30 @@ jobs:
             pnpm -v
 
       - run:
-          name: Clean install
+          name: Install dependencies
           command: |
             rm -rf node_modules apps/*/node_modules
             pnpm config set store-dir .pnpm-store
-            pnpm install --frozen-lockfile
-
-      - run:
-          name: Install dependencies
-          command: |
-            pnpm config set store-dir .pnpm-store
             pnpm install --frozen-lockfile --config.optional=true
+
       - save_cache:
           paths:
             - .pnpm-store
           key: pnpm-store-v2-{{ checksum "pnpm-lock.yaml" }}
 
       - run:
-          name: Check rolldown native binding
+          name: Wait for Postgres
           command: |
-            ls node_modules/@rolldown || true
-            pnpm list @rolldown/binding-linux-x64-gnu -r || true
+            sudo apt-get update
+            sudo apt-get install -y postgresql-client
+            until pg_isready -h localhost -p 5432 -U postgres; do
+              echo "Waiting for postgres..."
+              sleep 2
+            done
 
       - run:
           name: Run e2e tests with coverage
           command: pnpm test
-
-      - store_artifacts:
-          path: coverage
-          destination: coverage
-
-      - store_test_results:
-          path: test-results
 
 workflows:
   test:
