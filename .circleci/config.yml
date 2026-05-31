@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   test:
     docker:
-      - image: cimg/node:20.11
+      - image: cimg/node:20.18
       - image: cimg/postgres:16.2
         environment:
           POSTGRES_USER: postgres
@@ -23,16 +23,16 @@ jobs:
 
       - restore_cache:
           keys:
-            - node-deps-{{ checksum "package-lock.json" }}
+            - pnpm-deps-{{ checksum "pnpm-lock.yaml" }}
 
       - run:
           name: Install dependencies
-          command: npm i
+          command: pnpm install --frozen-lockfile
 
       - save_cache:
           paths:
-            - ~/.npm
-          key: node-deps-{{ checksum "package-lock.json" }}
+            - ~/.local/share/pnpm/store
+          key: pnpm-deps-{{ checksum "pnpm-lock.yaml" }}
 
       - run:
           name: Run e2e tests with coverage
