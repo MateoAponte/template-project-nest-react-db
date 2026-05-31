@@ -4,6 +4,9 @@
   "description": "",
   "main": "commitlint.config.js",
   "packageManager": "pnpm@10.0.0",
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "build": "turbo run build",
     "test": "turbo run test -- --passWithNoTests",
