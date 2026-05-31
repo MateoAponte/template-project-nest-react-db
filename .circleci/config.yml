@@ -6,6 +6,15 @@ jobs:
       - image: cimg/node:20.18
       - image: cimg/postgres:16.2
         environment:
+          NODE_ENV: test
+          DB_HOST: localhost
+          DB_PORT: 5432
+          DB_USERNAME: postgres
+          DB_PASSWORD: postgres
+          DB_DATABASE: template_test_db
+
+      - image: cimg/postgres:16.4
+        environment:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
           POSTGRES_DB: template_test_db
