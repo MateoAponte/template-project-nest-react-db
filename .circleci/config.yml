@@ -33,7 +33,7 @@ jobs:
 
       - run:
           name: Install dependencies
-          command: pnpm ci
+          command: pnpm install --frozen-lockfile
 
       - save_cache:
           paths:
