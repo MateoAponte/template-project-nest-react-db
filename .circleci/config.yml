@@ -23,7 +23,7 @@ jobs:
 
       - restore_cache:
           keys:
-            - node-deps-{{ checksum "package-lock.json" }}
+            - pnpm-store-v1-{{ checksum "pnpm-lock.yaml" }}
 
       - run:
           name: Check versions
@@ -33,8 +33,7 @@ jobs:
 
       - run:
           name: Install dependencies
-          command: pnpm install --frozen-lockfile
-
+          command: pnpm install --frozen-lockfile --include-optional
       - save_cache:
           paths:
             - ~/.npm
