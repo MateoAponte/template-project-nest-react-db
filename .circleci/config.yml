@@ -34,8 +34,8 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-            corepack enable
-            corepack prepare pnpm@10.0.0 --activate
+            node -v
+            pnpm -v
             pnpm config set store-dir .pnpm-store
             pnpm install --frozen-lockfile --config.optional=true
       - save_cache:
