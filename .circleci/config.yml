@@ -26,6 +26,12 @@ jobs:
             - node-deps-{{ checksum "package-lock.json" }}
 
       - run:
+          name: Check versions
+          command: |
+            node -v
+            pnpm -v
+
+      - run:
           name: Install dependencies
           command: pnpm ci
 
