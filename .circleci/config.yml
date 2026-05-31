@@ -68,7 +68,7 @@ jobs:
             "DB_USER=postgres" \
             "DB_USERNAME=postgres" \
             "DB_PASSWORD=postgres" \
-            "DB_NAME=template_db" \
+            "DB_NAME=template_test_db" \
             "DB_NAME_TEST=template_test_db" \
             "DB_DATABASE=template_test_db" \
             "JWT_SECRET=1234567890abcdefghijklmnopqrstuvwxyz" \
